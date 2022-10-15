@@ -24,6 +24,6 @@ public class MoveController : MonoBehaviour
     }
     public void ChangeRegime(bool cond)
     {
-        CurrentMoveRegime = cond ? RegimeType.freeMove : RegimeType.platformer;
+        CurrentMoveRegime = cond ? RegimeType.platformer : RegimeType.freeMove;
     }
 }
