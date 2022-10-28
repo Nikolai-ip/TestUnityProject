@@ -5,22 +5,36 @@ using UnityEngine;
 public class PlatformerMove : MonoBehaviour, IMoveRegime
 {
     [SerializeField] private float _xSpeed;
+    private bool isJump = false;
     private float y = 0;
     [SerializeField] private float _jumpHeight;
     [SerializeField] private float _jumpSpeed;
     private bool _cubOnGround;
     [SerializeField] private float _gravity;
 
+    private void Update()
+    {
+        CheckJump();
+    }
+    private void CheckJump()
+    {
+        if (JumpButtonIsPressed())
+        {
+            isJump = true;
+        }
+    }
+    private bool JumpButtonIsPressed() => Input.GetKeyDown(KeyCode.Space);
     public float MoveX()
     {
-        return Input.GetAxis("Horizontal") * _xSpeed * Time.deltaTime;
+        return Input.GetAxis("Horizontal") * _xSpeed;
     }
 
     public float MoveY()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (isJump)
         {
             StartCoroutine(Jump());
+            isJump = false;
         }
         else if (_cubOnGround)
         {
@@ -47,6 +61,6 @@ public class PlatformerMove : MonoBehaviour, IMoveRegime
 
     private float JumpFunc(float x)
     {
-        return -1 * math.pow((x - 2), 2) + 4; // функция для прыжка y = -(x-2)^2+4
+        return -1 * math.pow((x - 2), 2) + 4; // y = -(x-2)^2+4
     }
 }

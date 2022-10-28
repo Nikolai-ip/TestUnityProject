@@ -18,7 +18,7 @@ public class MoveController : MonoBehaviour
         _moveRegimesMap.Add(RegimeType.freeMove, GetComponent<FreeMove>()); 
     }
 
-    void Update()
+    void FixedUpdate()
     {
         _rb.velocity = new Vector2(_moveRegimesMap[CurrentMoveRegime].MoveX(), _moveRegimesMap[CurrentMoveRegime].MoveY());
     }
